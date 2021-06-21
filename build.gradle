@@ -1,0 +1,47 @@
+plugins {
+    id 'application'
+    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
+    id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlin_version"
+}
+
+group "com.pollux"
+version "0.0.1"
+mainClassName = "io.ktor.server.netty.EngineMain"
+
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    //ktor
+    implementation "io.ktor:ktor-server-core:$ktor_version"
+    implementation "io.ktor:ktor-server-netty:$ktor_version"
+    implementation "ch.qos.logback:logback-classic:$logback_version"
+    testImplementation "io.ktor:ktor-server-tests:$ktor_version"
+
+    // Authentication
+    implementation "io.ktor:ktor-auth:$ktor_version"
+    implementation "io.ktor:ktor-auth-jwt:$ktor_version"
+
+    // Sessions
+    implementation "io.ktor:ktor-server-sessions:$ktor_version"
+
+    // HTML / CSS
+    implementation "io.ktor:ktor-html-builder:$ktor_version"
+    implementation "org.jetbrains:kotlin-css:1.0.0-pre.155-kotlin-$kotlin_version"
+
+    // MySQL Database (MariaDB)
+    implementation "org.mariadb.jdbc:mariadb-java-client:$mariaDBVersion"
+    // HikariCP - Connection Pooling
+    implementation "com.zaxxer:HikariCP:$hikariVersion"
+    // Exposed (SQL DSL)
+    implementation "org.jetbrains.exposed:exposed-core:$exposedVersion"
+    implementation "org.jetbrains.exposed:exposed-jdbc:$exposedVersion"
+
+    // JSON parser
+    implementation "io.ktor:ktor-serialization:$ktor_version"
+}

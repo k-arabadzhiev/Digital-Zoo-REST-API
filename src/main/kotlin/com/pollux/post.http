@@ -1,0 +1,79 @@
+POST http://localhost:8080/animal/new
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer {{auth_token}}
+
+--WebAppBoundary
+Content-Type: application/json
+
+{
+    "animalName": "Snowy Owl",
+    "zookeeper": "admin",
+    "species": "Birds",
+    "info": "Lorem ipsum dolor sit amet, consectetur adipiscing elit..",
+    "age": "5 years",
+    "weight": "24.5",
+    "food": "Small, rodent-like mammals, such as mice",
+    "diet": "Carnivores",
+    "habitat": "Arctic"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="photo"; filename="Owl.jpeg"
+Content-Type: image/jpeg
+
+< C:\Path\To\Image\Owl.jpeg
+--WebAppBoundary--
+
+###
+
+POST http://localhost:8080/zookeeper/new
+Content-Type: application/x-www-form-urlencoded
+
+firstname=Tony&lastname=Stark&username=ironman&password=123456
+
+###
+POST http://localhost:8080/zookeeper/login
+Content-Type: application/x-www-form-urlencoded
+
+username=admin&password=123456
+
+> {% client.global.set("auth_token", response.body.jwt) %}
+
+###
+POST http://localhost:8080/zookeeper/logout
+Content-Type: application/x-www-form-urlencoded
+
+username=admin
+> {% client.global.set("auth_token", "") %}
+
+###
+
+POST http://localhost:8080/animal/update
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer {{auth_token}}
+
+--WebAppBoundary
+Content-Type: application/json
+
+{
+    "animalName": "Owl",
+    "animalNameOld": "Snowy Owl",
+    "zookeeper": "admin",
+    "species": "Birds",
+    "info": "Snowy owls are native to the Arctic regions. One of the largest species of owl, it is the only owl with largely white plumage. Most owls sleep during the day and hunt at night, but the snowy owl is often active during the day, especially in the summertime.Male snowy owls have been known to measure from 52.5 to 64 cm in total length. In wingspan, males may range from 116 to 165.6 cm. The snowy owl is a nomadic bird, rarely breeding at the same locations or with the same mates on an annual basis and often not breeding at all if prey is unavailable. A largely migratory bird, snowy owls can wander almost anywhere close to the Arctic, sometimes unpredictably irrupting to the south in large numbers. Given the difficulty of surveying such an unpredictable bird, there was little in depth knowledge historically about the snowy owl's status. However, recent data suggests the species is declining precipitously.",
+    "age": "up to 28 years",
+    "weight": "1300-2500g",
+    "food": "lemmings, voles, and other small rodents",
+    "diet": "Carnivores",
+    "habitat": "Arctic"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="photo"; filename="Owl.jpeg"
+Content-Type: image/jpeg
+
+< C:\Path\To\Image\Owl.jpeg
+--WebAppBoundary--
+
+###
+
+DELETE http://localhost:8080/animal/delete/7
+Authorization: Bearer {{auth_token}}

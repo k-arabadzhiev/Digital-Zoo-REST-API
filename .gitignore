@@ -1,0 +1,12 @@
+/build
+*.ipr
+*.iws
+# Java class files
+*.class
+# Gradle files
+gradle/
+.gradle/
+build/
+# Intellij
+*.iml
+.idea/
